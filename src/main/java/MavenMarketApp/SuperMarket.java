@@ -10,9 +10,18 @@ import MavenMarketApp.Employee.StoreManager;
 import MavenMarketApp.Item.Groceries;
 import MavenMarketApp.Item.Item;
 
+import java.io.*;
 import java.util.Queue;
 
 public class SuperMarket {
+
+    private static String getShoppingList() throws IOException {
+        File file = new File("ShoppingList.txt");
+        try (FileReader fr = new FileReader(file);
+             BufferedReader br = new BufferedReader(fr)) {
+            return br.readLine();
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -28,6 +37,12 @@ public class SuperMarket {
         CustomLinkedList<Customer> checkoutLine = new CustomLinkedList<>();
 
         ProduceDepartment produceDepartment = new ProduceDepartment();
+
+        try {
+            System.out.println("What is on the shopping list? " + getShoppingList());
+        } catch (IOException ioe) {
+            System.out.println("You lost the Shopping List!");
+        }
 
         Groceries tomatoes = new Groceries("tomatoes", 100, 0.75D, 0.25D);
         Groceries potatoes = new Groceries("potatoes", 100, 0.5D, 0.10D);
@@ -56,7 +71,7 @@ public class SuperMarket {
         System.out.println(sueAnne.getName() + ": Your total today is: " + sueAnne.checkout(conveyorBelt) + "\n");
 
         for (Item item : bobby.bagGroceries(conveyorBelt)) {
-            if(item.isDented()){
+            if (item.isDented()) {
                 karen.askForManager();
                 System.out.println(karen.getName() + ": " + karen.getComplaint());
             }
