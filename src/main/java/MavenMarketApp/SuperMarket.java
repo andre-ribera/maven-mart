@@ -9,6 +9,8 @@ import MavenMarketApp.Employee.ProduceManager;
 import MavenMarketApp.Employee.StoreManager;
 import MavenMarketApp.Item.Groceries;
 import MavenMarketApp.Item.Item;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.core.util.FileUtils;
 
 import java.io.*;
 import java.util.Queue;
@@ -37,8 +39,9 @@ public class SuperMarket {
         CustomLinkedList<Customer> checkoutLine = new CustomLinkedList<>();
 
         ProduceDepartment produceDepartment = new ProduceDepartment();
-
+        
         try {
+            String data = FileUtils.readFileFromString
             System.out.println("What is on the shopping list? " + getShoppingList());
         } catch (IOException ioe) {
             System.out.println("You lost the Shopping List!");
